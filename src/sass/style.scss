@@ -3,6 +3,5 @@
 @import "./modules/variable";
 @import "./modules/function";
 
-html, body {
-    background-color: $red;
-}
+@import "./modalX/modalX";
+

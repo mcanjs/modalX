@@ -45,7 +45,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.modalX-init {
+html, body {
   font-family: "Dosis", sans-serif;
   font-weight: 500;
   color: #000000; }
@@ -71,5 +71,48 @@ table {
 .modalX-bg-blue {
   background-color: #2196F3; }
 
-html, body {
-  background-color: #F44336; }
+.modalX-init {
+  z-index: 999999999999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.3); }
+  .modalX-init.no-bg {
+    background-color: transparent; }
+  .modalX-init.half-height {
+    align-items: center; }
+    .modalX-init.half-height .modalX-container {
+      height: 50%;
+      background: #ffffff; }
+  .modalX-init .modalX-container {
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 5px; }
+    .modalX-init .modalX-container .modalX-header, .modalX-init .modalX-container .modalX-body, .modalX-init .modalX-container .modalX-footer {
+      display: flex;
+      align-items: center;
+      padding: 0 15px; }
+    .modalX-init .modalX-container .modalX-header, .modalX-init .modalX-container .modalX-footer {
+      height: 25%; }
+    .modalX-init .modalX-container .modalX-header {
+      position: relative; }
+      .modalX-init .modalX-container .modalX-header .modalX-close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer; }
+        .modalX-init .modalX-container .modalX-header .modalX-close-button span {
+          width: 25px;
+          height: 4px;
+          display: block;
+          transform: rotate(45deg);
+          background-color: #000000; }
+          .modalX-init .modalX-container .modalX-header .modalX-close-button span:last-of-type {
+            position: relative;
+            top: -4px;
+            transform: rotate(-45deg); }
+    .modalX-init .modalX-container .modalX-body {
+      height: 50%; }
