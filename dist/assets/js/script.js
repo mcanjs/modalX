@@ -132,23 +132,3 @@ var modalX = (function () {
         }
     };
 }());
-
-var header = '<h1> hello </h1>';
-var body = '<p>body</p>';
-var footer = '<p>footer</p>';
-
-modalX.init( {
-    auto: true,
-    time: 1000,
-    button: '.button',
-    doms: [
-        header,
-        body,
-        footer
-    ],
-    classes: [
-        'half-height',
-        'modalHeight'
-    ],
-    closable: true
-} );
