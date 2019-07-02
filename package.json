@@ -1,5 +1,5 @@
 {
-  "name": "modalx",
+  "name": "@mcanspinn/modal-x",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,17 @@
     "start": "http-server dist/ -p 9000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcannspin/modalX.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Mehmet Can Kızılyer",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcannspin/modalX/issues"
+  },
+  "homepage": "https://github.com/mcannspin/modalX#readme",
   "dependencies": {
     "gulp-autoprefixer": "^6.1.0"
   },
