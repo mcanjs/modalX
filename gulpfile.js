@@ -15,7 +15,6 @@ function css() {
 function minCss() {
     return src('src/sass/**/*.scss')
         .pipe(sass())
-        .pipe(autoprefixer({ browsers: AUTOPREFIXER_BROWSERS }))
         .pipe(minifyCSS())
         .pipe(rename({
             suffix: '.min'

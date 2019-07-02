@@ -1,3 +1,13 @@
+/**
+ *
+ * @param {boolean} auto : Module auto trigger or button triggered.
+ * @param {number} time : Module delay time
+ * @param {string} button : If module not auto triggered button selector.
+ * @param {boolean} closable : Modal Close Button Active or Deactivated
+ * @param {array} doms : Modal Header, Body, Footer set dom
+ * @param {array} classes : Modal Parent Set Class Multiple or Single
+ */
+
 var modalX = (function () {
     'use strict';
 
@@ -25,7 +35,7 @@ var modalX = (function () {
         },
     };
 
-    function _domDialog ( doms, classes ) {
+    function _domDialog ( doms, classes, closable ) {
         var _header = _dom.modal.replace('<$ header $>', doms[0]);
         var _body = _header.replace('<$ body $>', doms[1]);
         var _footer = _body.replace('<$ footer $>', doms[2]);
@@ -36,8 +46,13 @@ var modalX = (function () {
             _dom.state._activeDom = _footer;
         }
         
-        // Set
+        // Set Modal
         document.body.insertAdjacentHTML('beforeend', _dom.state._activeDom);
+
+        // Close Modal Dialog
+        if ( closable ) modalX.closeModalDialog();
+
+
     }
 
     function _setClasses( dom, classes ) {
@@ -71,29 +86,30 @@ var modalX = (function () {
     return {
         init: function ( obj ) {
             var delay = obj.time && obj.time > 0 ? obj.time : 0;
-            this.initModal( obj.type, delay, obj.button, obj.doms, obj.classes );
+            this.initModal( obj.auto, delay, obj.button, obj.doms, obj.classes, obj.closable );
         },
-        initModal: function ( type, delay, button, doms, classes ) {
-            var isTimeOut = false;
+        initModal: function ( type, delay, button, doms, classes, closable ) {
             modalX.setError( doms, 'modalX Error: No dom element, ex: http://mehmetcankizilyer.com/modalX/ex1' );
             setTimeout( function () {
                 if ( type ) {
-                    modalX.splitRelaventAreas(doms, classes);
-                    isTimeOut = true;
+                    modalX.handleAutoModal(doms, classes, closable);
+                } else {
+                    modalX.handleActionModal(button, doms, classes, closable);
                 }
-            }, delay );
-            if ( isTimeOut ) return;
-            modalX.handleEventModal(button, doms, classes);
+            }, delay );            
         },
-        handleEventModal: function ( button, doms, classes ) {
+        handleAutoModal: function ( doms, classes, closable ) {
+            _domDialog(doms, classes, closable)
+        },
+        handleActionModal: function ( button, doms, classes, closable ) {
             var element = _getElement(button);
             if ( element.length > 1 ) {
                 for ( var i = 0; i < element.length; i += 1 ) {
                     var item = element[i];
-                    item.addEventListener('click', _domDialog.bind( this, doms, classes ));
+                    item.addEventListener('click', _domDialog.bind( this, doms, classes, closable ));
                 }
             } else {
-                element[0].addEventListener('click', _domDialog.bind(this, doms, classes));
+                element[0].addEventListener('click', _domDialog.bind(this, doms, classes, closable));
             }
         },
         setDom: function () {
@@ -101,10 +117,10 @@ var modalX = (function () {
         },
         closeModalDialog: function () {
             var buttons = document.getElementsByClassName('modalX-close-button');
-            
             for ( var i = 0; i < buttons.length; i += 1 ) {
                 buttons[i].addEventListener('click', function () {
-                    console.log(this);
+                    var parentModal = this.parentNode.parentNode.parentNode;
+                    parentModal.parentNode.removeChild(parentModal);
                 })
             }
         },
@@ -122,7 +138,7 @@ var body = '<p>body</p>';
 var footer = '<p>footer</p>';
 
 modalX.init( {
-    auto: false,
+    auto: true,
     time: 1000,
     button: '.button',
     doms: [
@@ -133,5 +149,6 @@ modalX.init( {
     classes: [
         'half-height',
         'modalHeight'
-    ]
+    ],
+    closable: true
 } );
